@@ -153,3 +153,24 @@ for ($i = 0; $i < $n; ++$i) {
 }
 echo $sum;
 
+/**
+ * С помощью цикла сформируйте строку '1223334444...'
+ * и так далее до заданного числа
+ */
+$string = '';
+$n = 10;
+for ($i = 1; $i <= $n; $i++) {
+    for ($j = $i; $j > 0; --$j) {
+        $string .= $i;
+    }
+}
+echo $string;
+echo PHP_EOL;
+$string = '';
+$n = 10;
+for ($i = 1; $i <= $n; $i++) {
+    for ($j = 1; $j <= $i; $j++) {
+        $string .= $i;
+    }
+}
+echo $string;
