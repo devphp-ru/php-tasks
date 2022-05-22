@@ -311,3 +311,24 @@ for ($i = 2; $i < $n; $i++) {
     }
 }
 print_r($a);
+
+/**
+ * Даны две строки с одинаковым количеством символов,
+ * найте какое количество символов не совпадает
+ * 'Привит мир!', 'Привет Вова'
+ */
+$firstString = 'Привит мир!';
+$secondString = 'Привет Вова';
+$splitFirst = mb_str_split($firstString);
+$splitSecond = mb_str_split($secondString);
+$n = count($splitFirst);
+$count = 0;
+$symbol = [];
+for ($i = 0; $i < $n; $i++) {
+    if ($splitFirst[$i] !== $splitSecond[$i]) {
+        $count++;
+        $symbol[] = $splitFirst[$i] . ' ' . $splitSecond[$i];
+    }
+}
+echo $count;
+print_r($symbol);
