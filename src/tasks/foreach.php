@@ -36,3 +36,29 @@ foreach ($a as $value) {
     $result += ($value * $value);
 }
 echo $result;
+
+/**
+ * Дан массив с элементами 'html', 'css', 'php', 'js', 'jq'
+ * С помощью цикла foreach выведите эти слова в столбик
+ */
+$list = ['html', 'css', 'php', 'js', 'jq'];
+foreach ($list as $value) {
+    echo $value . PHP_EOL;
+}
+
+/**
+ * Дан массив $a 'blue' => 'Синий', 'green' => 'Зеленый', 'red' => 'Красный'
+ * С помощью цикла foreach выведите на экран
+ * столбец ключей и элементов в формате 'green => зеленый'
+ */
+$list = ['blue' => 'Синий', 'green' => 'Зеленый', 'red' => 'Красный'];
+foreach ($list as $key => $value) {
+    echo "{$key}=>{$value}" . PHP_EOL;
+}
+
+
+
+
+
+
+
