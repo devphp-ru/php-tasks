@@ -373,3 +373,202 @@ for ($i = 0; $i < $n; $i++) {
     }
 }
 echo $count;
+
+/**
+ * Выведите на экран следующую пирамидку
+ * x
+ * xx
+ * xxx
+ * xxxx
+ * xxxxx
+ * xxxxxx
+ * xxxxxxx
+ * xxxxxxxx
+ * xxxxxxxxx
+ */
+$n = 10;
+for ($i = 1; $i <= $n; $i++) {
+    for ($j = 1; $j <= $i; $j++) {
+        echo 'x';
+    }
+    echo PHP_EOL;
+}
+
+for ($i = 0; $i < $n; $i++) {
+    echo str_repeat('x', $i) . PHP_EOL;
+}
+
+/**
+ * Выведите на экран следующую пирамидку
+ * xx
+ * xxxx
+ * xxxxxx
+ * xxxxxxxx
+ * xxxxxxxxxx
+ */
+$n = 10;
+for ($i = 1; $i <= $n; $i++) {
+    if (($i % 2) === 0) {
+        for ($j = 1; $j <= $i; $j++) {
+            echo 'x';
+        }
+        echo PHP_EOL;
+    }
+}
+
+for ($i = 1; $i <= $n; $i++) {
+    if (($i % 2) === 0) {
+        echo str_repeat('x', $i) . PHP_EOL;
+    }
+}
+
+/**
+ * Выведите на экран следующую пирамидку
+ * 111
+ * 222
+ * 333
+ * 444
+ * 555
+ * 666
+ * 777
+ * 888
+ * 999
+ */
+$n = 9;
+for ($i = 1; $i <= $n; $i++) {
+    for ($j = 1; $j <= 3; $j++) {
+        echo $i;
+    }
+    echo PHP_EOL;
+}
+
+for ($i = 1; $i <= $n; $i++) {
+    echo str_repeat((string)$i, 3) . PHP_EOL;
+}
+
+/**
+ * Выведите на экран следующую пирамидку
+ * 1
+ * 22
+ * 333
+ * 4444
+ * 55555
+ * 666666
+ * 7777777
+ * 88888888
+ * 999999999
+ */
+$n = 9;
+for ($i = 1; $i <= $n; $i++) {
+    for ($j = 1; $j <= $i; $j++) {
+        echo $i;
+    }
+    echo PHP_EOL;
+}
+
+for ($i = 1; $i <= $n; $i++) {
+    echo str_repeat((string)$i, $i) . PHP_EOL;
+}
+
+/**
+ * Выведите на экран следующую пирамидку
+ * 1
+ * 333
+ * 55555
+ * 7777777
+ * 999999999
+ */
+$n = 9;
+for ($i = 1; $i <= $n; $i++) {
+    if ($i === 1 || $i === 3 || $i === 5 || $i === 7 || $i === 9) {
+        for ($j = 1; $j <= $i; $j++) {
+            echo $i;
+        }
+        echo PHP_EOL;
+    }
+}
+
+$numbers = [1, 3, 5, 7, 9];
+for ($i = 1; $i <= $n; $i++) {
+    if (in_array($i, $numbers)) {
+        for ($j = 1; $j <= $i; $j++) {
+            echo $i;
+        }
+        echo PHP_EOL;
+    }
+}
+
+$numbers = [1, 3, 5, 7, 9];
+for ($i = 1; $i <= $n; $i++) {
+    if (in_array($i, $numbers)) {
+        echo str_repeat((string)$i, $i) . PHP_EOL;
+    }
+}
+
+/**
+ * Выведите на экран следующую пирамидку
+ * xxxxx
+ * xxxx
+ * xxx
+ * xx
+ * x
+ */
+$n = 5;
+for ($i = $n; $i >= 1; $i--) {
+    for ($j = 1; $j <= $i; $j++) {
+        echo 'x';
+    }
+    echo PHP_EOL;
+}
+
+for ($i = $n; $i >= 1; $i--) {
+    echo str_repeat((string)$i, $i) . PHP_EOL;
+}
+
+/**
+ * Выведите на экран следующую пирамидку
+ * xxxxxxxxxx
+ * xxxxxxxx
+ * xxxxxx
+ * xxxx
+ * xx
+ */
+$n = 10;
+for ($i = $n; $i >= 1; $i--) {
+    if (($i % 2) === 0) {
+        for ($j = 1; $j <= $i; $j++) {
+            echo 'x';
+        }
+        echo PHP_EOL;
+    }
+}
+
+for ($i = $n; $i >= 1; $i--) {
+    if (($i % 2) === 0) {
+        echo str_repeat('x', $i) . PHP_EOL;
+    }
+}
+
+/**
+ * Выведите на экран следующую пирамидку
+ * 999999999
+ * 88888888
+ * 7777777
+ * 666666
+ * 55555
+ * 4444
+ * 333
+ * 22
+ * 1
+ */
+$n = 9;
+for ($i = $n; $i >= 1; $i--) {
+    for ($j = 1; $j <= $i; $j++) {
+        echo $i;
+    }
+    echo PHP_EOL;
+}
+
+for ($i = $n; $i >= 1; $i--) {
+    echo str_repeat((string)$i, $i) . PHP_EOL;
+}
