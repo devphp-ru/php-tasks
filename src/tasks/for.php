@@ -572,3 +572,63 @@ for ($i = $n; $i >= 1; $i--) {
 for ($i = $n; $i >= 1; $i--) {
     echo str_repeat((string)$i, $i) . PHP_EOL;
 }
+
+/**
+ * Выведите на экран следующую пирамидку
+ * 12345
+ * 12345
+ * 12345
+ * 12345
+ * 12345
+ */
+$n = 5;
+for ($i = 1; $i <= $n; $i++) {
+    for ($j = 1; $j <= $n; $j++) {
+        echo $i;
+    }
+    echo PHP_EOL;
+}
+
+for ($i = 1; $i <= $n; $i++) {
+    echo str_repeat((string)$i, $n) . PHP_EOL;
+}
+
+/**
+ * Выведите на экран следующую пирамидку
+ * 11111
+ * 22222
+ * 33333
+ * 44444
+ * 55555
+ */
+$n = 5;
+for ($i = 1; $i <= $n; $i++) {
+    for ($j = 1; $j <= $n; $j++) {
+        echo $i;
+    }
+    echo PHP_EOL;
+}
+
+for ($i = 1; $i <= $n; $i++) {
+    echo str_repeat((string)$i, $n) . PHP_EOL;
+}
+
+/**
+ * Выведите на экран следующую пирамидку
+ * 55555
+ * 44444
+ * 33333
+ * 22222
+ * 11111
+ */
+$n = 5;
+for ($i = $n; $i > 0; $i--) {
+    for ($j = 1; $j <= $n; $j++) {
+        echo $i;
+    }
+    echo PHP_EOL;
+}
+
+for ($i = $n; $i > 0; $i--) {
+    echo str_repeat((string)$i, $n) . PHP_EOL;
+}
