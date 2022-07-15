@@ -1515,6 +1515,61 @@ for ($i = 1; $i <= $n; $i++) {
 
 /**
  * Вывести циклом цифры
+ * 0
+ * 0 1
+ * 0 1 1
+ * 0 1 1 2
+ * 0 1 1 2 3
+ */
+$n = 5;
+$firstNum = $secondNum = $result = 0;
+for ($i = 1; $i <= $n; $i++) {
+    for ($j = 1; $j <= $i; $j++) {
+        $firstNum = $secondNum;
+        $secondNum = $result;
+        echo $result . ' ';
+        $result = $firstNum + $secondNum;
+    }
+    $firstNum = 0;
+    $secondNum = 1;
+    $result = 0;
+    echo PHP_EOL;
+}
+
+/**
+ * Вывести циклом цифры
+ * 1
+ * 0 0
+ * 1 1 1
+ * 0 0 0 0
+ * 1 1 1 1 1
+ */
+$n = 5;
+for ($i = 1; $i <= $n; $i++) {
+    for ($j = 1; $j <= $i; $j++) {
+        echo ($i % 2) . ' ';
+    }
+    echo PHP_EOL;
+}
+
+/**
+ * Вывести циклом цифры
+ * 0
+ * 1 1
+ * 0 0 0
+ * 1 1 1 1
+ * 0 0 0 0 0
+ */
+$n = 5;
+for ($i = 0; $i < $n; $i++) {
+    for ($j = 0; $j <= $i; $j++) {
+        echo ($i % 2) . ' ';
+    }
+    echo PHP_EOL;
+}
+
+/**
+ * Вывести циклом цифры
  * 1
  * 2 11
  * 3 12 20
