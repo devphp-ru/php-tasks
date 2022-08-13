@@ -1,6 +1,20 @@
 <?php
 
 /**
+ * Преобразовать первый символ строки
+ * ('hello world!', 'привет мир!')
+ * в верхний регистр
+ */
+$string = 'hello world!';
+$string = ucfirst($string);
+echo $string;
+$string = 'привет мир!';
+$string = ucfirst($string);
+$ch = mb_strtoupper(mb_substr($string, 0, 1));
+$string = $ch . mb_substr($string, 1);
+echo $string;
+
+/**
  * Замените в строке все вхождения 'word' на 'letter'.
  */
 $string = 'Hello world, hello world, world hello';
