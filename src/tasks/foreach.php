@@ -119,3 +119,21 @@ foreach ($numbers as $key => $value) {
     $numbers[$key] = abs($value);
 }
 print_r($numbers);
+
+/**
+ * Дан массив числами ['10', '20', '30', '50', '235', '3000']
+ * Выведите на экран только те числа из массива,
+ * которые начинаются на цифру 1, 2 или 5
+ */
+$numbers = ['10', '20', '30', '50', '235', '3000'];
+foreach ($numbers as $value) {
+    if ($value[0] == 1 || $value[0] == 2 || $value[0] == 5) {
+        echo $value . ' ';
+    }
+}
+echo  PHP_EOL;
+foreach ($numbers as $value) {
+    if (in_array($value[0], [1, 2, 5])) {
+        echo $value . ' ';
+    }
+}
