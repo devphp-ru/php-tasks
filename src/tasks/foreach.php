@@ -137,3 +137,58 @@ foreach ($numbers as $value) {
         echo $value . ' ';
     }
 }
+
+/**
+ * Дан массив с элементами 1, 2, 3, 4, 5, 6, 7, 8, 9
+ * С помощью цикла foreach создайте строку '-1-2-3-4-5-6-7-8-9-
+ */
+$numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+$str = '-';
+foreach ($numbers as $value) {
+    $str .= $value . '-';
+}
+echo $str;
+
+/**
+ * Составьте массив дней недели.
+ * С помощью цикла foreach выведите все дни недели,
+ * а выходные дни выведите жирным
+ */
+$days = [
+    'пн',
+    'вт',
+    'ср',
+    'чт',
+    'пт',
+    'сб',
+    'вс',
+];
+foreach ($days as $key => $value) {
+    if ($key == 5 || $key == 6) {
+        echo "<b>{$value}</b>" . PHP_EOL;
+    } else {
+        echo $value . PHP_EOL;
+    }
+}
+
+/**
+ * Вывести файлы и выровнять по правому краю
+ */
+$files = [
+    'all.php', 'auth.php',
+    'auth.txt', 'base.txt',
+    'chat.html', 'config.php',
+    'count.txt', 'count_new.txt',
+    'counter.dat', 'counter.php',
+    'create.php', 'dat.db'
+];
+$maxLength = 0;
+foreach ($files as $value) {
+    $length = strlen($value);
+    if ($length > $maxLength) {
+        $maxLength = $length;
+    }
+}
+foreach ($files as $value) {
+    printf("%{$maxLength}s" . PHP_EOL, $value);
+}
