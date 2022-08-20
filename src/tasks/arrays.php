@@ -1,6 +1,67 @@
 <?php
 
 /**
+ * Создать массив и присвоить ему следующие значения
+ * 'Apples', 'Bananas', 'Cantaloupes', 'Dates'
+ * с указанием индексе и без
+ */
+$fruits[0] = 'Apples';
+$fruits[1] = 'Bananas';
+$fruits[2] = 'Cantaloupes';
+$fruits[3] = 'Dates';
+print_r($fruits);
+
+$fruits[] = 'Apples';
+$fruits[] = 'Bananas';
+$fruits[] = 'Cantaloupes';
+$fruits[] = 'Dates';
+print_r($fruits);
+
+/**
+ * Создайте массив и присвойте значения
+ * нескольких элементов массива в одной операции,
+ * но при этом начальный индекс не должен быть равен 0.
+ */
+$cars = [
+    1 => 'BMV',
+    'Audi',
+    'Acura',
+    'LADA',
+];
+print_r($cars);
+
+/**
+ * Создайте и сохраните в массиве серию последовательных целых чисел.
+ */
+$numbers = range(1, 100);
+print_r($numbers);
+
+/**
+ * Создайте и удалите из массива один или несколько элементов.
+ */
+$cars = [
+    'Audi',
+    'BMV',
+    'Volvo',
+    'Kia',
+    'Ford',
+];
+unset($cars[1], $cars[3]);
+print_r($cars);
+
+/**
+ * Создайте массив 'Audi', 'BMV', 'Volvo', 'Kia', 'Ford', 'Opel', 'Jeep',
+ * и измените размер массива увеличте или уменьшите
+ * его по сравннию с текущим размером.
+ */
+$cars = ['Audi', 'BMV', 'Volvo', 'Kia', 'Ford', 'Opel', 'Jeep'];
+$cars[] = 'Fiat';
+$cars[] = 'Bugatti';
+print_r($cars);
+$cars = array_slice($cars, 6);
+print_r($cars);
+
+/**
  * Вывести информацию о массиве в удобочитаемом виде
  */
 $a = [
