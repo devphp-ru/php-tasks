@@ -1,6 +1,41 @@
 <?php
 
 /**
+ * Дана строка 'php'.
+ * Сделайте из нее строку 'PHP'
+ */
+$string = 'php';
+echo strtoupper($string);
+
+/**
+ * Дана строка 'PHP'.
+ * Сделайте из нее строку 'php'
+ */
+$string = 'php';
+echo strtolower($string);
+
+/**
+ * Дана строка 'london'.
+ * Сделайте из нее строку 'London'
+ */
+$string = 'london';
+echo ucfirst($string);
+
+/**
+ * Дана строка 'London'.
+ * Сделайте из нее строку 'london'
+ */
+$string = 'london';
+echo lcfirst($string);
+
+/**
+ * Дана строка 'london is the capital of great britain'.
+ * Сделайте из нее строку 'London Is The Capital Of Great Britain'.
+ */
+$string = 'london is the capital of great britain';
+echo ucwords($string);
+
+/**
  * Разбить предложение на слова
  * 'PHP это распространённый язык программирования общего назначения с открытым исходным кодом'
  */
