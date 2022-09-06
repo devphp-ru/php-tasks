@@ -176,6 +176,24 @@ for ($i = 1; $i <= $n; $i++) {
 echo $string;
 
 /**
+ * Напишите программу, чтобы проверить,
+ * содержит ли данная строка все уникальные символы.
+ *
+ * Пример вывода: Исходная строка: https
+ */
+$string = 'https';
+$strSplit = mb_str_split($string);
+$isDuplicates = false;
+$n = count($strSplit);
+for ($i = 0; $i < $n; $i++) {
+    for ($j = $n - 1; $j > $i; $j--) {
+        if ($strSplit[$i] === $strSplit[$j])
+            $isDuplicates = true;
+    }
+}
+var_dump($isDuplicates);
+
+/**
  * Вывод строки в обратном порядке
  * 'PHP это распространённый язык программирования'
  */
