@@ -192,3 +192,17 @@ foreach ($files as $value) {
 foreach ($files as $value) {
     printf("%{$maxLength}s" . PHP_EOL, $value);
 }
+
+/**
+ * Даны два массива [1, 2, 3] и ['a', 'b', 'c'],
+ * объедените их таким образом, чтобы на выходе был
+ * одни массив в таком виде [1, 'a', 2, 'b', 3, 'c']
+ */
+$a = [1, 2, 3];
+$b = ['a', 'b', 'c'];
+$result = [];
+foreach ($a as $k => $v) {
+	$result[] = $a[$k];
+	$result[] = $b[$k];
+}
+echo implode(', ', $result);
