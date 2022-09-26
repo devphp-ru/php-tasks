@@ -189,3 +189,15 @@ var_dump($array);
 $a = [2, 8, 5, 3];
 $b = ($a[0] * $a[1]) + ($a[2] * $a[3]);
 echo $b;
+
+/**
+ * Поменять местами наибольший и наименьший элементы массива.
+ */
+$a = [2, 5, 3, 1, 4];
+$min = min($a);
+$max = max($a);
+$keyMin = array_search($min, $a);
+$keyMax = array_search($max, $a);
+$a[$keyMin] = $max;
+$a[$keyMax] = $min;
+print_r($a);
