@@ -172,3 +172,81 @@ for ($i = 0; $i < $n; $i++) {
 	$counter++;
 }
 echo '</table>';
+
+/**
+ * Вывод таблицы с тремя столбцами по второму варианту
+ */
+$files = [
+	'all.php', 'auth.php',
+	'auth.txt', 'base.txt',
+	'chat.html', 'config.php',
+	'count.txt', 'count_new.txt',
+	'counter.dat', 'counter.php',
+	'create.php', 'dat.db',
+];
+$n = count($files);
+$numCols = 3;
+$number = (int)($n / $numCols);
+if ((float)($n / $numCols) - $number != 0) {
+	$number++;
+}
+
+$arr = [];
+for ($i = 0; $i < $number; $i++) {
+	for ($j = 0; $j < $numCols; $j++) {
+		$arr[$i][$j] = $files[$j * $number + $i];
+	}
+}
+
+echo '<table border="1">';
+for ($i = 0; $i < $number; $i++) {
+	echo '<tr>';
+	for ($j = 0; $j < $numCols; $j++) {
+		echo "<td>{$arr[$i][$j]}</td>";
+	}
+	echo '</tr>';
+}
+echo '</table>';
+
+/**
+ * Передача массива методом GET
+ */
+$files = [
+	'all.php', 'auth.php',
+	'auth.txt', 'base.txt',
+	'chat.html', 'config.php',
+	'count.txt', 'count_new.txt',
+	'counter.dat', 'counter.php',
+	'create.php', 'dat.db',
+];
+$url = implode('&files[]=', $files);
+$url = 'file.php?files[]=' . $url;
+echo "<a href=\"{$url}\">Отправить</a>";
+//file.php
+echo '<pre>';
+print_r($_GET);
+echo '</pre>';
+
+/**
+ * HTML-форма для отправки данных методом POST
+ */
+$files = [
+	'all.php', 'auth.php',
+	'auth.txt', 'base.txt',
+	'chat.html', 'config.php',
+	'count.txt', 'count_new.txt',
+	'counter.dat', 'counter.php',
+	'create.php', 'dat.db',
+];
+/*
+<form action="file.php" method="post">
+	<?php foreach ($files as $value): ?>
+		<input type="hidden" name="files[]" value="<?php echo $value; ?>">
+	<?php endforeach; ?>
+	<input type="submit" value="Отправить">
+</form>
+*/
+//file.php
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
