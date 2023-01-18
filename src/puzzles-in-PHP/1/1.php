@@ -143,3 +143,32 @@ for ($i = 0; $i < $half; $i++) {
 		$files[$half + $i]
 	);
 }
+
+/**
+ * Вывод таблицы с тремя столбцами по первому варианту
+ */
+$files = [
+	'all.php', 'auth.php',
+	'auth.txt', 'base.txt',
+	'chat.html', 'config.php',
+	'count.txt', 'count_new.txt',
+	'counter.dat', 'counter.php',
+	'create.php', 'dat.db',
+];
+$n = count($files);
+$numCols = 3;
+$counter = 0;
+echo '<table border="1">';
+for ($i = 0; $i < $n; $i++) {
+	if ($counter === 0) {
+		echo '<tr>';
+	}
+
+	if ($counter === $numCols) {
+		echo '</tr>';
+		$counter = 0;
+	}
+	echo "<td>{$files[$i]}</td>";
+	$counter++;
+}
+echo '</table>';
