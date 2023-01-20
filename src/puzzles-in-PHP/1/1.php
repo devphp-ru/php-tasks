@@ -250,3 +250,105 @@ $files = [
 echo '<pre>';
 print_r($_POST);
 echo '</pre>';
+
+/**
+ * Использование сессий для передачи массива
+ */
+session_start();
+$files = [
+	'all.php', 'auth.php',
+	'auth.txt', 'base.txt',
+	'chat.html', 'config.php',
+	'count.txt', 'count_new.txt',
+	'counter.dat', 'counter.php',
+	'create.php', 'dat.db',
+];
+unset($_SESSION['filename']);
+foreach ($files as $value) {
+	$_SESSION['filename'][] = $value;
+}
+echo "<a href='file.php'>link</a>";
+//file.php
+session_start();
+echo '<pre>';
+print_r($_SESSION['filename']);
+echo '</pre>';
+
+/**
+ * Использование cookie для передачи массива
+ */
+$files = [
+	'all.php', 'auth.php',
+	'auth.txt', 'base.txt',
+	'chat.html', 'config.php',
+	'count.txt', 'count_new.txt',
+	'counter.dat', 'counter.php',
+	'create.php', 'dat.db',
+];
+session_start();
+$content = serialize($files);
+setcookie('filename', $content, time() + 3600);
+echo "<a href='file.php'>link</a>";
+//file.php
+session_start();
+$files = unserialize(stripcslashes($_COOKIE['filename']));
+echo '<pre>';
+print_r($files);
+echo '</pre>';
+
+/**
+ * Вертикальный вывод строки
+ */
+$string = 'Hello world!';
+$arr = str_split($string);
+foreach ($arr as $value) {
+	echo $value . PHP_EOL;
+}
+
+/**
+ * Альтернативный способ вертикального вывода
+ */
+$string = 'Hello world!';
+$n = strlen($string);
+for ($i = 0; $i < $n; $i++) {
+	echo $string[$i] . PHP_EOL;
+}
+
+/**
+ * Число в денежном формате
+ */
+$price = 18439529234.5678;
+echo number_format($price, 2, '.', ',');
+
+/**
+ * Упаковка IP-адреса в число
+ */
+function myIp2Long(string $ip): int
+{
+	$a = explode('.', $ip);
+	return 256 * 256 * 256 * $a[0]
+		+ 256 * 256 * $a[1]
+		+ 256 * $a[2]
+		+ $a[3];
+}
+$ip = '127.0.0.1';
+$number = ip2Long($ip);
+echo $number;
+
+/**
+ * Восстановление IP-адреса из целого числа
+ */
+function myLong2Ip(int $number): string
+{
+	$a = [];
+	for ($i = 0; $i < 4; $i++) {
+		$a[$i] = (int)$number % 256;
+		$number /= 256;
+	}
+
+	krsort($a);
+	return implode('.', $a);
+}
+
+$number = 2130706433;
+echo myLong2Ip($number);
