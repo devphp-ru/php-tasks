@@ -352,3 +352,62 @@ function myLong2Ip(int $number): string
 
 $number = 2130706433;
 echo myLong2Ip($number);
+
+/**
+ * Календарь на текущий месяц в американском формате
+ */
+$dayOfMonth = date('t');
+$dayCount = 1;
+$num = 0;
+$week = [];
+for ($i = 0; $i < 7; $i++) {
+	$dayOfWeek = date('w', mktime(0, 0, 0, (int)date('m'), $dayCount, (int)date('Y')));
+	$dayOrWeek = $dayOfWeek - 1;
+
+	if ($dayOfWeek == -1) {
+		$dayOrWeek = 6;
+	}
+
+	if ($dayOfWeek == $i) {
+		$week[$num][$i] = $dayCount;
+		$dayCount++;
+	} else {
+		$week[$num][$i] = '';
+	}
+}
+
+while (true) {
+	$num++;
+	for ($i = 0; $i < 7; $i++) {
+		$week[$num][$i] = $dayCount;
+		$dayCount++;
+
+		if ($dayCount > $dayOfMonth) {
+			break;
+		}
+	}
+
+	if ($dayCount > $dayOfMonth) {
+		break;
+	}
+}
+
+$n = count($week);
+$table = '<table border="1">';
+for ($i = 0; $i < $n; $i++) {
+	$table .= '<tr>';
+	for ($j = 0; $j < 7; $j++) {
+		if (!empty($week[$i][$j])) {
+			if ($j == 5 || $j == 6) {
+				$table .= "<td style=\"color:red;\">{$week[$i][$j]}</td>";
+			} else {
+				$table .= "<td>{$week[$i][$j]}</td>";
+			}
+		} else {
+			$table .= "<td>&nbsp;</td>";
+		}
+	}
+	$table .= "</tr>";
+}
+$table .= '<table>';
+echo $table;
