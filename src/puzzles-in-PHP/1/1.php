@@ -411,3 +411,60 @@ for ($i = 0; $i < $n; $i++) {
 }
 $table .= '<table>';
 echo $table;
+
+/**
+ * Календарь на текущий месяц в российском формате
+ */
+$dayOfMonth = date('t');
+$dayCount = 1;
+$dayOfWeek = [];
+$week = [];
+$num = 0;
+for ($i = 0; $i < 7; $i++) {
+	$dayOfWeek = date('w', mktime(0, 0, 0, (int)date('m'), $dayCount, (int)date('Y')));
+	$dayOfWeek -= 1;
+
+	if ($dayOfWeek == -1) {
+		$dayOfWeek = 6;
+	}
+
+	if ($dayOfWeek == $i) {
+		$week[$num][$i] = $dayCount;
+		$dayCount++;
+	} else {
+		$week[$num][$i] = '';
+	}
+}
+while (true) {
+	$num++;
+	for ($i = 0; $i < 7; $i++) {
+		$week[$num][$i] = $dayCount;
+		$dayCount++;
+
+		if ($dayCount > $dayOfMonth) {
+			break;
+		}
+	}
+
+	if ($dayCount > $dayOfMonth) {
+		break;
+	}
+}
+$n = count($week);
+$table = '<table border="1">';
+for ($i = 0; $i < 7; $i++) {
+	$table .= '<tr>';
+	for ($j = 0; $j < $n; $j++) {
+		if (!empty($week[$j][$i])) {
+			if ($i == 5 || $i == 6) {
+				$table .= "<td style=\"color: red;\">{$week[$j][$i]}</td>";
+			} else {
+				$table .= "<td>{$week[$j][$i]}</td>";
+			}
+		} else {
+			$table .= "<td>&nbsp;</td>";
+		}
+	}
+	$table .= "</tr>";
+}
+echo $table;
