@@ -468,3 +468,62 @@ for ($i = 0; $i < 7; $i++) {
 	$table .= "</tr>";
 }
 echo $table;
+
+/**
+ * Замена символов bbCode,
+ * использование функции str_replace()
+ */
+$text = 'Это [b]жирный[/b], жирный [b]текст';
+$text = str_replace('[b]', '<b>', $text);
+$text = str_replace('[/b]', '</b>', $text);
+echo $text;
+
+/**
+ * Замена символов bbCode,
+ * обработка только закрытых тегов
+ */
+$text = 'Это [b]жирный[/b], жирный [b]текст';
+$result = '';
+$lastocc = 0;
+$sndooc = 1;
+while ($sndooc) {
+	$fstocc = strpos($text, '[b]', $lastocc);
+	$sndocc = strpos($text, '[/b]', $fstocc);
+	if (($fstocc > 0 && $sndocc > 0 && $lastocc > 0)
+		|| ($fstocc >= 0 && $sndocc > 0 && $lastocc == 0)) {
+		$result .= substr($text, $lastocc, $fstocc - $lastocc);
+		$result .= '<b>' . substr($text, $fstocc + 3, $sndocc - $fstocc - 3) . '</b>';
+		$lastocc = $sndocc + 4;
+	} else {
+		$result .= substr($text, $lastocc, strlen($text) - $lastocc);
+		break;
+	}
+}
+echo $result;
+
+/**
+ * Преобразование десятичного числа в двоичное
+ */
+$binary = '';
+$dec = 137;
+do {
+	if (intval($dec) % 2) {
+		$binary = '1'  . $binary;
+	} else {
+		$binary = '0' . $binary;
+	}
+
+	$dec = (int)$dec / 2;
+} while ($dec);
+echo $binary;//10001001
+//альтернативное решение задачи
+do {
+	if (intval($dec) & 1) {
+		$binary = '1' . $binary;
+	} else {
+		$binary = '0' . $binary;
+	}
+
+	$dec = $dec >> 1;
+} while ($dec);
+echo $binary;//10001001
