@@ -527,3 +527,44 @@ do {
 	$dec = $dec >> 1;
 } while ($dec);
 echo $binary;//10001001
+
+/**
+ * Преобразование двоичного числа в десятичное
+ */
+$dec = 0;
+$multiplier = 1;
+$bin = '101';
+$n = strlen($bin);
+for ($i = $n; $i; $i--, $multiplier *= 2) {
+	if ($bin[$i - 1] == '1') {
+		$dec += $multiplier;
+	} elseif ($bin[$i - 1] != '0') {
+		die ('Неверный формат');
+	}
+}
+echo $dec;//5
+
+/**
+ * Возведение числа в степень
+ */
+$result = 1;
+$number = 10;
+$pow = 3;
+for ($i = 0; $i < $pow; $i++) {
+	$result *= $number;
+}
+echo $result . PHP_EOL;//125
+//альтернативное решение задачи
+echo $number ** $pow;//125
+
+/**
+ * Изменение регистра строки,
+ * преобразование к верхнему регистру
+ */
+$result = '';
+$string = 'hello';
+$n = mb_strlen($string);
+for ($i = 0; $i < $n; $i++) {
+	$result .= chr(ord($string[$i]) & 223);
+}
+echo $result;
