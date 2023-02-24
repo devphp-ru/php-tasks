@@ -568,3 +568,71 @@ for ($i = 0; $i < $n; $i++) {
 	$result .= chr(ord($string[$i]) & 223);
 }
 echo $result;
+
+/**
+ * Изменение регистра строки, преобразование к нижнему регистру
+ */
+$result = '';
+$string = 'HELLO';
+$n = strlen($string);
+for ($i = 0; $i < $n; $i++) {
+	$result .= chr(ord($string[$i]) | 32);
+}
+echo $result;
+
+/**
+ * Преобразование арабского числа в римское
+ */
+$number = 20;
+if ($number > 2000 || $number < 1) {
+	die ('Число должно быть от 1 до 2000');
+}
+$one = ['I', 'X', 'C', 'M'];
+$five = ['V', 'L', 'D'];
+$index = 0;
+$result = '';
+do {
+	switch (intval($number % 10)) {
+		case 1:
+			$result = $one[$index] . $result;
+			break;
+		case 2:
+			$result = $one[$index] . $result;
+			$result = $one[$index] . $result;
+			break;
+		case 3:
+			$result = $one[$index] . $result;
+			$result = $one[$index] . $result;
+			$result = $one[$index] . $result;
+			break;
+		case 4:
+			$result = $five[$index] . $result;
+			$result = $one[$index] . $result;
+			break;
+		case 5:
+			$result = $five[$index] . $result;
+			break;
+		case 6:
+			$result = $one[$index] . $result;
+			$result = $five[$index] . $result;
+			break;
+		case 7:
+			$result = $one[$index] . $result;
+			$result = $one[$index] . $result;
+			$result = $five[$index] . $result;
+			break;
+		case 8:
+			$result = $one[$index] . $result;
+			$result = $one[$index] . $result;
+			$result = $one[$index] . $result;
+			$result = $five[$index] . $result;
+			break;
+		case 9:
+			$result = $one[$index + 1] . $result;
+			$result = $one[$index] . $result;
+			break;
+	}
+	$number = intval($number / 10);
+	$index++;
+} while ($number);
+echo $result;//XX
