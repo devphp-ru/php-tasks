@@ -61,3 +61,10 @@ if (!preg_match($pattern, $email)) {
 } else {
 	echo $email;
 }
+
+/**
+ *  Проверка корректности ввода URL
+ */
+$url = 'https://domain.ru';
+$pattern = '/^(http|https):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/i';
+echo preg_match($pattern, $url) ? 'url верен' : 'url неверен';
