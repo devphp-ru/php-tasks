@@ -68,3 +68,14 @@ if (!preg_match($pattern, $email)) {
 $url = 'https://domain.ru';
 $pattern = '/^(http|https):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/i';
 echo preg_match($pattern, $url) ? 'url верен' : 'url неверен';
+
+$number = '3';
+$price = '100';
+if (!preg_match("#^[\d]*$#", $number)) {
+	die ('Неверный формат числа.');
+}
+if (!preg_match("#^[\d]*[\.,]?[\d]*$#", $price)) {
+	die ('Неверный формат цены.');
+}
+//300.00
+echo number_format(((int)$number * (int)$price), 2, '.', ' ');
