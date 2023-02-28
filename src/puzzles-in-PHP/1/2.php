@@ -79,3 +79,29 @@ if (!preg_match("#^[\d]*[\.,]?[\d]*$#", $price)) {
 }
 //300.00
 echo number_format(((int)$number * (int)$price), 2, '.', ' ');
+
+/**
+ * Замена текста
+ */
+function replaceText(array $matches): string
+{
+	return mb_substr($matches[0], 0, 1) . mb_strtolower(mb_substr($matches[0], 1));
+}
+$text = 'ПРОГРАММИРОВАНИЕ - это ИСКУССТВО. Ему и ЖИЗНЬ посвятить не жалко.';
+$pattern = '#[А-ЯЁ]{2,}#';
+$result = preg_replace_callback($pattern, 'replaceText', $text);
+//Программирование - это Искусство. Ему и Жизнь посвятить не жалко.
+echo $result;
+
+/**
+ * Разбивка длинной строки
+ */
+function splitText(array $matches): string
+{
+	return wordwrap($matches[0], 25, '<br>', true);
+}
+$content = 'AAAAAAAAAAaaaaaaaaaaaaaaaaaaaaaaaaaaaaAAAAAAAAAAAAAaaaaaaaaa';
+$pattern = '#(\w{25,})#';
+$result = preg_replace_callback($pattern, 'splitText', $content);
+//AAAAAAAAAAaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaAAAAAAAAAAAA<br>Aaaaaaaaaa
+echo $result;
