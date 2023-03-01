@@ -105,3 +105,13 @@ $pattern = '#(\w{25,})#';
 $result = preg_replace_callback($pattern, 'splitText', $content);
 //AAAAAAAAAAaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaAAAAAAAAAAAA<br>Aaaaaaaaaa
 echo $result;
+
+/**
+ * Разбивка текста на предложения
+ */
+$content = file_get_contents(__DIR__ . '/file.php');
+$pattern = '#[\s]+#s';
+$content = preg_replace($pattern, ' ', trim(strip_tags($content)));
+$pattern = '#[\.!\?][\s]+#';
+$result = preg_split($pattern, $content);
+print_r($result);
