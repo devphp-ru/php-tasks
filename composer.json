@@ -1,4 +1,10 @@
 {
+  "authors": [
+    {
+      "name": "phpdevru"
+    }
+  ],
+  "description": "Задачник по PHP с решениями",
   "autoload": {
     "psr-4": {
       "App\\": "src"

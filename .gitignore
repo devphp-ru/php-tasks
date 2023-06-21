@@ -3,4 +3,5 @@
 /vendor
 index.php
 file.php
+.phpunit.result.cache
 *.txt
