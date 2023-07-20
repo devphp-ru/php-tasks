@@ -59,4 +59,12 @@ if (preg_match($pattern, $email, $matches)) {
     echo 'email is incorrect';
 }
 
-
+/**
+ * Преобразование массива $text в двумерный
+ */
+$content = file_get_contents(__DIR__ . '/file.php');
+$content = preg_replace("#[\s]+#s", ' ', strip_tags($content));
+$text = preg_split("#[\.!\?][\s]+#s", $content);
+echo '<pre>';
+print_r($text);
+echo '</pre>';
