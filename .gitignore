@@ -1,4 +1,5 @@
 .idea
+.osp
 /assets
 /vendor
 index.php
