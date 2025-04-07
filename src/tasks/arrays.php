@@ -201,3 +201,29 @@ $keyMax = array_search($max, $a);
 $a[$keyMin] = $max;
 $a[$keyMax] = $min;
 print_r($a);
+
+/**
+ * Дан массив из 100 элементов.
+ * Требуется вывести количество последовательных пар одинаковых элементов.
+ *
+ * Например: 1, 1, 2, 3, 4 -51, 12, 12, 12, -51
+ * Ответ: 3
+ */
+$arr = [1, 1, 2, 3, 4 -51, 12, 12, 12, -51];
+$result = 0;
+foreach ($arr as $key => $value) {
+    if (isset($arr[$key + 1]) && ($arr[$key + 1] === $value)) {
+        $result++;
+    }
+}
+echo $result;
+
+$result = 0;
+$n = count($arr) - 1;
+for ($i = 0; $i < $n; $i++) {
+    if ($arr[$i] === $arr[$i + 1]) {
+        $result++;
+    }
+}
+echo $result;
+
