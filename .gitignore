@@ -4,5 +4,6 @@
 /vendor
 index.php
 file.php
+composer.lock
 .phpunit.result.cache
 *.txt
