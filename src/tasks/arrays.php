@@ -227,3 +227,71 @@ for ($i = 0; $i < $n; $i++) {
 }
 echo $result;
 
+/**
+ * Выделить уникальные записи (убрать дубли) в отдельный массив. в конечном массиве не должно быть элементов с одинаковым id.
+ */
+$arr = [
+    ['id' => 1, 'date' => "12.01.2020", 'name' => "test1"],
+    ['id' => 2, 'date' => "12.02.2020", 'name' => "test2"],
+    ['id' => 4, 'date' => "12.03.2020", 'name' => "test4"],
+    ['id' => 1, 'date' => "12.04.2020", 'name' => "test1"],
+    ['id' => 2, 'date' => "12.05.2020", 'name' => "test4"],
+    ['id' => 3, 'date' => "12.06.2020", 'name' => "test3"],
+];
+$uniques = [];
+$result = array_filter($arr, function ($item) use (&$uniques): array {
+    if (!in_array($item['id'], $uniques)) {
+        $uniques[] = $item['id'];
+        return $item;
+    }
+    return [];
+});
+print_r($result);
+
+/**
+ * Отсортировать многомерный массив по любому ключу
+ */
+$arr = [
+    ['id' => 1, 'date' => "12.01.2020", 'name' => "test1"],
+    ['id' => 2, 'date' => "12.02.2020", 'name' => "test2"],
+    ['id' => 4, 'date' => "12.03.2020", 'name' => "test4"],
+    ['id' => 1, 'date' => "12.04.2020", 'name' => "test1"],
+    ['id' => 2, 'date' => "12.05.2020", 'name' => "test4"],
+    ['id' => 3, 'date' => "12.06.2020", 'name' => "test3"],
+];
+$key = 'name';
+uasort($arr, fn ($a, $b) => $a[$key] <=> $b[$key]);
+print_r($arr);
+
+/**
+ * Вернуть из массива только элементы, удовлетворяющие внешним условиям (например элементы с определенным id)
+ */
+$arr = [
+    ['id' => 1, 'date' => "12.01.2020", 'name' => "test1"],
+    ['id' => 2, 'date' => "12.02.2020", 'name' => "test2"],
+    ['id' => 4, 'date' => "12.03.2020", 'name' => "test4"],
+    ['id' => 1, 'date' => "12.04.2020", 'name' => "test1"],
+    ['id' => 2, 'date' => "12.05.2020", 'name' => "test4"],
+    ['id' => 3, 'date' => "12.06.2020", 'name' => "test3"],
+];
+$id = 2;
+$result = array_filter($arr, function ($item) use ($id) {
+    return $item['id'] === $id;
+});
+print_r($result);
+
+/**
+ * Изменить в массиве значения и ключи (использовать name => id в качестве пары ключ => значение)
+ */
+$arr = [
+    ['id' => 1, 'date' => "12.01.2020", 'name' => "test1"],
+    ['id' => 2, 'date' => "12.02.2020", 'name' => "test2"],
+    ['id' => 4, 'date' => "12.03.2020", 'name' => "test4"],
+    ['id' => 1, 'date' => "12.04.2020", 'name' => "test1"],
+    ['id' => 2, 'date' => "12.05.2020", 'name' => "test4"],
+    ['id' => 3, 'date' => "12.06.2020", 'name' => "test3"],
+];
+$key1 = 'name';
+$key2 = 'id';
+$result = array_combine(array_column($arr, $key1), array_column($arr, $key2));
+print_r($result);
