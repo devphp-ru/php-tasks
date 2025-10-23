@@ -122,3 +122,33 @@ $a = (int)($str[0] + $str[1] + $str[2]);
 $b = (int)($str[3] + $str[4] + $str[5]);
 
 echo ($a === $b) ? 'да' : 'нет';
+
+/**
+ * Сумма больших чисел
+ * Дана строка, содержащая два положительных целых числа, разделённых пробелом. Числа могут быть большими и не умещаться в 64-битное целое. Нужно вывести сумму этих чисел.
+ */
+function sumStr(string $str): string
+{
+    [$s1, $s2] = explode(' ', $str);
+    $l1 = strlen($s1);
+    $l2 = strlen($s2);
+
+    $result = '';
+    $rest = 0;
+
+    $max = max($l1, $l2) + 1;
+
+    for ($i = 0; $i < $max; $i++) {
+        $d1 = $s1[$l1 - $i] ?? 0;
+        $d2 = $s2[$l2 - $i] ?? 0;
+
+        $sum = $d1 + $d2 + $rest;
+        $rest = intval($sum > 9);
+        $result .= $sum % 10;
+    }
+
+    return strrev(rtrim($result, '0'));
+}
+$string = '2 6';
+$result = sumStr($string);
+echo $result;
