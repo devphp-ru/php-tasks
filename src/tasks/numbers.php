@@ -186,3 +186,29 @@ $left = $n % 10;
 $n = intval($n / 10);
 $left = $left + $n;
 var_dump($left === $right);
+
+/**
+ * Проверить равенство двух чисел с плавающей точкой.
+ */
+$first = 22.19348234;
+$second = 22.19348230;
+$epsilon = 0.000001;
+$result = abs($first - $second) < $epsilon;
+var_dump($result);
+
+/**
+ * Округлить число с плавающей точкой либо до фиксированного количества десятичных знаков, либо до целого числа.
+ */
+$n = 15.31415;
+$result = round($n, 1);
+echo $result;
+$result = ceil($n);
+echo $result;
+$result = floor($n);
+echo $result;
+
+/**
+ * Сгенерировать случайное целое число в определенном диапазоне.
+ */
+$result = random_int(10, 255);
+echo $result;
