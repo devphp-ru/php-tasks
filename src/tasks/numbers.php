@@ -212,3 +212,21 @@ echo $result;
  */
 $result = random_int(10, 255);
 echo $result;
+
+/**
+ * Задать случайные числа таким образом, чтобы их последовательность была одинаковой при каждом запуске.
+ */
+function generateSequence(int $count = 10): array
+{
+    for ($i = 0; $i < $count; $i++) {
+        $result[] = mt_rand(0, 100);
+    }
+
+    return $result ?? [];
+}
+mt_srand(42);
+$first = generateSequence();
+mt_srand(42);
+$second = generateSequence();
+print_r($first);
+print_r($second);
