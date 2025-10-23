@@ -152,3 +152,39 @@ function sumStr(string $str): string
 $string = '2 6';
 $result = sumStr($string);
 echo $result;
+
+/**
+ * Скобки
+ * На входе есть строка, содержащая только скобки из набора {}()[]. Необходимо определить, является ли она сбалансированной или нет.
+ * То есть [([]{[]})] — сбалансированная, а {[}], [{)] и ]{}[ — нет.
+ */
+function isStringBalanced(string $string): bool
+{
+    $pattern = [
+        '}' => '{',
+        ')' => '(',
+        ']' => '[',
+    ];
+
+    $stack = [];
+    $len = strlen($string);
+
+    for ($i = 0; $i < $len; $i++) {
+        $char = $string[$i];
+
+        if (isset($pattern[$char])) {
+            $el = array_pop($stack);
+            if ($el !== $pattern[$char]) {
+                return false;
+            }
+        } else {
+            $stack[] = $char;
+        }
+    }
+
+    return !$stack;
+}
+
+$string = '[([]{[]})]';
+$result = isStringBalanced($string);
+var_dump($result);
