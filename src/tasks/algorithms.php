@@ -172,3 +172,36 @@ function quickSort(array $arr): array
 $arr = [5, 2, 1, 3, 4];
 $result = quickSort($arr);
 print_r($result);
+
+/**
+ * Бинарный поиск (также известен как двоичный поиск, метод деления пополам или дихотомия)
+ * алгоритм поиска элемента в отсортированном массиве данных.
+ * Бинарный поиск гораздо более эффективный в сравнении с линейным поиском.
+ * Временная сложность алгоритма:
+ * В среднем случае — O(n log n).
+ * В худшем случае — O(n²).
+ */
+function binarySearch(array $array, int $x): int
+{
+    $i = 0;
+    $n = count($array);
+
+    while ($i !== $n) {
+        $m = (int)(($i + $n) / 2);
+        if ($x === $array[$m]) {
+            return $m;
+        }
+
+        if ($x < $array[$m]) {
+            $n = $m;
+        } else {
+            $i = ($m + 1);
+        }
+    }
+
+    return 0;
+}
+$x = 8;
+$a = [3, 5, 6, 8, 12, 15, 17, 18, 20, 25];
+$result = binarySearch($a, $x);
+echo $result;
