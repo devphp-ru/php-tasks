@@ -205,3 +205,28 @@ $x = 8;
 $a = [3, 5, 6, 8, 12, 15, 17, 18, 20, 25];
 $result = binarySearch($a, $x);
 echo $result;
+
+/**
+ * Напишите функцию, которая принимает массив с разными числами, а возвращает наиболее встрещающееся число из этого массива.
+ * Sample Input: [1, 3, 2, 2, 2, 3, 0]
+ * Sample Output: 2
+ */
+function search(array $a): int
+{
+    $n = count($a);
+    $result = 0;
+
+    for ($i = 0; $i < $n; $i++) {
+        for ($j = ($i + 1); $j < $n; $j++) {
+            if ($a[$i] === $a[$j]) {
+                $result = (int)$a[$j];
+            }
+        }
+    }
+
+    return $result;
+}
+
+$a = [1, 3, 2, 2, 2, 3, 0];
+$result = search($a);
+echo $result;
