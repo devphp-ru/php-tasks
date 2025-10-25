@@ -295,3 +295,27 @@ $key1 = 'name';
 $key2 = 'id';
 $result = array_combine(array_column($arr, $key1), array_column($arr, $key2));
 print_r($result);
+
+/**
+ * Посчитать количество вхождений в массиве заданнго символа.
+ * Массив ['пара', 'жара', 'нора']
+ * Sample Input: а
+ * Sample Output: 5
+ */
+
+$lists = ['пара', 'жара', 'нора'];
+$letter = trim(fgets(STDIN));
+$n = count($lists);
+$counter = 0;
+
+for ($i = 0; $i < $n; $i++) {
+    $len = mb_strlen($lists[$i]);
+    for ($j = 0; $j < $len; $j++) {
+        $word = mb_str_split($lists[$i]);
+        if ($letter === $word[$j]) {
+            $counter++;
+        }
+    }
+}
+
+echo $counter;
