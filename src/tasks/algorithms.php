@@ -230,3 +230,58 @@ function search(array $a): int
 $a = [1, 3, 2, 2, 2, 3, 0];
 $result = search($a);
 echo $result;
+
+/**
+ * Учитывая строку, содержащую цифры от 2 до 9 включительно, верните все возможные комбинации букв,
+ * которые может представлять число. Верните ответ в любом порядке. Соответствие цифр буквам
+ * (как на кнопках телефона) приведено ниже. Обратите внимание, что 1 не соответствует никаким буквам.
+ * Sample Input: '245'
+ * Sample Output: [[0] => agj, [1] => agk, [2] => agl, [3] => ahj]
+ */
+class Solution
+{
+    public array $result = [];
+
+    public function letterCombinations(string $digits, array $layouts): array
+    {
+        if (strlen($digits) === 0) {
+            return [];
+        }
+
+        return $this->recursive(0, $digits, $layouts);
+    }
+
+    private function recursive(
+        int $index,
+        string $chars,
+        array $layouts,
+        string $combine = '',
+    ): array
+    {
+        foreach ($layouts[$chars[$index]] as $currentLayout) {
+            if (!empty($chars[$index + 1]) && $layouts[$chars[$index + 1]]) {
+                $this->recursive($index + 1, $chars, $layouts, $combine . $currentLayout);
+            } else {
+                $this->result[] = $combine . $currentLayout;
+            }
+        }
+
+        return $this->result;
+    }
+}
+
+$layouts = [
+    2 => range('a', 'c'),
+    3 => range('d', 'f'),
+    4 => range('g', 'i'),
+    5 => range('j', 'l'),
+    6 => range('m', 'o'),
+    7 => range('p', 's'),
+    8 => range('t', 'v'),
+    9 => range('w', 'z'),
+];
+
+$solution = new Solution();
+$string = '245';
+$result = $solution->letterCombinations($string, $layouts);
+print_r($result);
