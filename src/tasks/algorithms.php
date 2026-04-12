@@ -285,3 +285,40 @@ $solution = new Solution();
 $string = '245';
 $result = $solution->letterCombinations($string, $layouts);
 print_r($result);
+
+/**
+ * Учитывая строку s, содержащую только символы '(', ')', '{', '}', '[' и ']',
+ * определите, является ли входная строка допустимой.
+ * Входная строка действительна, если:
+ * Открытые скобки должны закрываться скобками того же типа.
+ * Sample Input: [ и ]
+ * Sample Output: bool(true)
+ */
+class Solution
+{
+    public function isValid(string $str): bool
+    {
+        $len = strlen($str);
+
+        if ($len % 2 !== 0) {
+            return false;
+        }
+
+        $pattern = ['(' => ')', '[' => ']', '{' => '}'];
+        $stack = [];
+
+        for ($i = 0; $i < $len; $i++) {
+            if (array_key_exists($str[$i], $pattern)) {
+                $stack[] = $pattern[$str[$i]];
+            } elseif (array_pop($stack) !== $str[$i]) {
+                return false;
+            }
+        }
+
+        return count($stack) === 0;
+    }
+
+}
+$string = '[ и ]';
+$result = new Solution()->isValid($string);
+var_dump($result);
