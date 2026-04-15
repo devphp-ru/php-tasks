@@ -37,3 +37,21 @@ select first_name, last_name, salary from employees
 -- 8. Напишите запрос, чтобы найти имя, фамилию и зарплату сотрудников, которые зарабатывают больше, чем зарабатывает мистер Белл.
 
 select first_name, last_name, salary from employees where salary > (select salary from employees where last_name='Bell') order by first_name asc;
+
+-- 9. Напишите запрос, чтобы найти имя, фамилию и зарплату сотрудников, которые получают ту же зарплату, что и минимальная зарплата для всех отделов.
+
+select first_name, last_name, salary from employees where salary = (select min(salary) from employees);
+
+-- 10. Напишите запрос, чтобы найти имя, фамилию и зарплату сотрудников, зарплата которых превышает среднюю зарплату всех отделов.
+
+select first_name, last_name, salary from employees where salary > all (select avg(salary) from employees group by department_id);
+
+-- 11. Напишите запрос, чтобы найти имя, фамилию и зарплату сотрудников, которые получают зарплату,
+-- превышающую зарплату всех клерков доставки (job_id = 'sh_clerk').
+
+select job_id, first_name, last_name, salary from employees where salary > all (select salary from employees where job_id='sh_clerk') order by salary desc;
+
+-- 12. Напишите запрос, чтобы найти имя, фамилию сотрудников, которые не являются руководителями.
+
+select e1.first_name, e1.last_name from employees e1 where not exists (select 'x' from employees e2 where e2.manager_id=e1.employee_id);
+
