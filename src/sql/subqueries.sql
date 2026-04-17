@@ -88,3 +88,19 @@ select distinct salary from employees e1 where 3 >= (select count(distinct salar
 -- 20. Напишите запрос, чтобы получить максимальную зарплату сотрудников.
 
 select * from employees e1 where (1) = (select count(distinct(e2.salary)) from employees e2 where e2.salary > e1.salary);
+
+-- 21. Определить наименования деталей, цена которых больше цены детали ‘болт’.
+
+select name from details price > (select price from details where name='болт');
+
+-- 22. Определить номера деталей, цена которых меньше средней цены деталей.
+
+select number from details price < (select avg(price) from details);
+
+-- 23. Определить номер поставщика, выполнившего поставку с минимальным объемом.
+
+select supplier_number from suppliers where volume = (select min(volume) from suppliers);
+
+-- 24. Определить номера деталей, которых поставляется больше, чем деталей с номером 2.
+
+select number from details group by number having sum(volume) > (select sum(volume) from details where number=2);
