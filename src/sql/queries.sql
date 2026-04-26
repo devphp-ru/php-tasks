@@ -78,3 +78,30 @@ select title_name, pubdate from titles where pubdate >= date '2001-01-01';
 # Получить названия книг, валовая прибыль от продажи которых составила более миллиона рублей.
 select title_name, price * sales as Revenue from titles where price * sales > 1000000;
 
+# Комбинорование условий с помощью операторов AND, OR и NOT
+
+# Получить названия книг-биографий, которые продаются дешевле 20 руб. за каждую.
+select title_name, type, price from titles where type = 'biography' and price < 20;
+
+# Получить имена, фамилии и штаты проживания авторов, чьи фамилии начинаются с H-Z.
+select au_fname, au_lname, state from authors where au_lname >= 'H' and au_lname <= 'Zz' and state <> 'CA';
+
+# Получить имена, фамилии авторов, которые живут или в штате Нью-Йорк, или в штате Колорадо. или в городе Сан-Франциско.
+select au_fname, au_lname, city, state from authors where (state = 'NY') or (state = 'CO') or (city = 'San Francisco');
+
+# Получить идентификаторы, названия, штаты и страны тех издательств, которые находятся в штате Калифорния,
+# или не находятся в штате Калифорния.
+select pub_id, pub_name, state, country from publishers where (state = 'CA') or (state <> 'CA');
+
+# Получить имена, фамилии авторов, которые не живут в Калифорнии.
+select au_fname, au_lname, state from authors where not (state = 'CA');
+
+# Получить названия книг, цена которых не ниже 20 руб. и объем продаж которых превышает 15 000 копий.
+select title_name, sales, price from titles where not (price < 20) and (sales > 15000);
+select title_name, sales, price from titles where price > 20 and sales > 15000;
+
+# Получить книги историю, или биографию и цена которых ниже 20 руб.
+# (Запрос работает не сработает, т.к. оператор AND выполнится раньше оператора OR)
+select title_id, type, price from titles where type = 'history' or type = 'biography' and price < 20;
+# (Выполняем оперетор OR раньше оператора AND)
+select title_id, type, price from titles where (type = 'history' or type = 'biography') and price < 20;
