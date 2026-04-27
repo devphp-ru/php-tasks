@@ -105,3 +105,39 @@ select title_name, sales, price from titles where price > 20 and sales > 15000;
 select title_id, type, price from titles where type = 'history' or type = 'biography' and price < 20;
 # (Выполняем оперетор OR раньше оператора AND)
 select title_id, type, price from titles where (type = 'history' or type = 'biography') and price < 20;
+
+# Сравнение по шаблону оператором LIKE
+
+# SELECT columns FROM table WHERE test_column [NOT] LIKE 'pattern';
+
+# Получить имена и фамилии авторов, чьи фамилии начинаются на Kel.
+select au_fname, au_lname from authors where au_lname like 'Kel%';
+
+# Получить имена и фамилии авторов, в фамилиях которых на местах 3-го и 4-го знаков есть буква 'l'.
+select au_fname, au_lname from authors where au_lname like '__ll%';
+
+# Получить имена и фамилии авторов, город, штат, код которые живут в районе залива Сан-Франциско (индекс начинается с цифр 94...).
+select au_fname, au_lname, city, state, zip from authors where zip like '94___';
+
+# Получить авторов, живущих за пределами территориальной области, которая соответствует телефонным кодам 212, 415 и 303.
+select au_fname, au_lname, phone from authors where phone not like '212-___-____' and phone not like '415-___-%' and phone not like '303-%';
+
+# Получить книги, которые содержат знак процентов в названии.
+select title_name from titles where title_name like '%!%%' escape '!';
+
+# Сравнение с диапазоном с помощью оператора BETWEEN
+
+# SELECT columns FROM table WHERE test_column [NOT] BETWEEN low_value AND high_value;
+
+# Получить авторов, у которых почтовый индекс не попадает в интервал от 20 000 до 89 999.
+select au_fname, au_lname, zip from authors where zip not between 20000 and 89999;
+
+# Получить названия книг, цена которых от 10 до 19,95 включительно.
+select title_id, title_name, price from titles where price between 10 and 19.95;
+
+# Получить названия книг, которые вышли из печати в 2000 году.
+select title_id, title_name, pubdate from titles where pubdate between date '2000-01-01' and date '2000-12-31';
+
+# Получить названия книг, цена которых от 10 до 19,95.
+select title_id, title_name, pubdate from titles where (price > 10) and (price < 19.95);
+
