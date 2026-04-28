@@ -141,3 +141,29 @@ select title_id, title_name, pubdate from titles where pubdate between date '200
 # Получить названия книг, цена которых от 10 до 19,95.
 select title_id, title_name, pubdate from titles where (price > 10) and (price < 19.95);
 
+# Фильтрация с помощью оператора IN
+
+# SELECT columns FROM table WHERE test_column [NOT] IN (value1, value2, …);
+
+# Получить авторов, которые живут не в штате Нью-Йорк не в штате Нью-Джерси, не в штате Калифорния.
+select au_fname, au_lname, state from authors where state not in ('NY', 'NJ', 'CA');
+
+# Получить названия книг, за которые аванс, выплаченный автору каждой книги, составил или 0, или 1000, или 5000 руб.
+select title_id, advance from royalties where advance in (0.00, 1000.00, 5000.00);
+
+# Получить названия (точнее, однозначные идентификаторы и даты публикации) книг, опубликованных 1 января 2000, 2001 и 2002 годов.
+select title_id, pubdate from titles where pubdate in (date '2000-01-01', date '2001-01-01', date '2002-01-01');
+
+# Проверка на значение NULL с помощью оператора IS [ NOT ] NULL
+
+# Получить места нахождения всех издателей.
+select pub_id, city, state, country from publishers;
+
+# Получить идентификаторы и адреса издателей, которые находятся в штате Калифорния.
+select pub_id, city, state, country from publishers where state = 'CA';
+
+# Перечислить всех издателей, которые находятся вне штата Калифорния.
+select pub_id, city, state, country from publishers where state <> 'CA' or state is null;
+
+# Выбрать книги-биографии, даты публикации (прошлые и будущие) которых известны.
+select title_id, type, pubdate from titles where type = 'biography' and pubdate is not null;
