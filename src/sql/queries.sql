@@ -167,3 +167,14 @@ select pub_id, city, state, country from publishers where state <> 'CA' or state
 
 # Выбрать книги-биографии, даты публикации (прошлые и будущие) которых известны.
 select title_id, type, pubdate from titles where type = 'biography' and pubdate is not null;
+
+# Создание производных столбцов
+
+# Здесь представлено одно выражение с константами в предложении SELECT.
+select 2 + 3;
+
+# Получить один столбец и одно выражение с константами.
+select au_id, 2 + 3 from authors;
+
+# Получить идентификаторы книг вместе с ценами, сниженными на 10%.
+select title_id, price, 0.10 as Discount, price * (1 - 0.10) as 'New price' from titles;
