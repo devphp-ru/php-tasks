@@ -201,3 +201,27 @@ select title_id, pages / 10 as 'pages/10', pages / 10.0 as 'pages/10.0' from tit
 # Применение круглых скобок для переопределения правила ассоциативности.
 select 2 + 3 * 4 as '2+3*4', (2 + 3) * 4 as '(2+3)*4', 6 / 2 * 3 as '6/2*3', 6 / (2 * 3) as '6/(2*3';
 
+# Объединение строк с помощью оператора || (CONCAT)
+
+# Получить имена и фамилии авторов, объедененные в один производный столбец, отсортировать в алфавитном порядке.
+select concat(au_fname, ' ', au_lname) as 'Author name' from authors order by au_lname asc, au_fname asc;
+
+# Получить в проядке убывания объемы продаж (количество когда-либо проданных копий) книг-биографий.
+select concat(cast(sales as char(7)), ' проданные экземпляры книг ', title_id) as 'Biography sales' from titles where type = 'biography' and sales is not null order by sales desc;
+
+# Получить в проядке убывания даты публикации книг.
+select concat('Title ', title_id, ' published on ', cast(pubdate as char(10))) as 'Biography publication dates' from titles where type = 'biography' and pubdate is not null order by pubdate desc;
+
+# Получить всех авторов, чье полное имя Klee Hull.
+select au_id, au_fname, au_lname from authors where concat(au_fname, ' ', au_lname) = 'Klee Hull';
+
+# Выбор произвольной подстроки с помощью функции SUBSTRING
+
+# Разбить идентификаторы издателей, на буквенную и цифровую составляющие.
+select pub_id, substring(pub_id from 1 for 1) as 'Alpha part', substring(pub_id from 2) as 'Num part' from publishers;
+
+# Получить первую букву (инициал) имени, точку, пробел и фамилию всех авторов, живущих в штате Нью-Йорк, или штате Колорадо.
+select concat(substring(au_fname from 1 for 1), '. ', au_lname) as 'Author name', state from authors where state in ('NY', 'CO');
+
+# Получить имена и фамилии авторов, у которых телефонный номер начинается на 415.
+select au_fname, au_lname, phone from authors where substring(phone from 1 for 3) = 415;
