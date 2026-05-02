@@ -225,3 +225,30 @@ select concat(substring(au_fname from 1 for 1), '. ', au_lname) as 'Author name'
 
 # Получить имена и фамилии авторов, у которых телефонный номер начинается на 415.
 select au_fname, au_lname, phone from authors where substring(phone from 1 for 3) = 415;
+
+# Получить имена авторов, в нижнем регистре, а их фамилии в верхнем регистре.
+select lower(au_fname) as Lower, upper(au_lname) as Upper from authors;
+
+# Получить названия книг, которые содержат сочетание (латинских) букв "MO", не зависимо от регистра.
+select title_name from titles where upper(title_name) like '%MO%';
+
+# Удалить головные и хвостовые пробелы у строки ' AAA '.
+select concat('<', ' AAA ', '>') as 'Untrimmed', concat('<', trim(leading from ' AAA '), '>') as 'Leading', concat('<', trim(trailing from ' AAA '), '>') as 'Trailing', concat('<', trim(' AAA '), '>') as 'Both';
+
+# Удалить первую заглавную букву 'H' в тех фамилиях авторов, которые начинаются с нее.
+select au_lname, trim(leading 'H' from au_fname) as 'Trimmed name' from authors;
+
+# Игнорируя головные и хвотовые пробелы, перечислить трехзначные идентификаторы названий книг, которые начинаются с сочетания T1.
+select title_id from titles where trim(title_id) like 'T1_';
+
+# Получить длину имен авторов.
+select au_fname, character_length(au_fname) as 'Len' from authors;
+
+# Перечислить в порядке возрастания длины (восходящий порядок) названия книг, которые содержат менее 30 символов.
+select title_name, character_length(title_name) as 'Len' from titles where character_length(title_name) < 30 order by character_length(title_name) asc;
+
+# Получить позицию подстроки 'e' в строке, являющейся именем автора, и позицию подстроки 'ma' в строке, ясляющейся фамилией автора.
+select au_fname, position('e' in au_fname) as 'Position e', au_lname, position('ma' in au_lname) as 'Position ma' from authors;
+
+# Получить названия книг, которые содержат не более 10 символов, считая слева на право, и латинскую строчную букву 'u'.
+select title_name, position('u' in title_name) as 'Position u' from titles where position('u' in title_name) between 1 and 10 order by position('u' in title_name) desc;
