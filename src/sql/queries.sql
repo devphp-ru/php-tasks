@@ -252,3 +252,65 @@ select au_fname, position('e' in au_fname) as 'Position e', au_lname, position('
 
 # Получить названия книг, которые содержат не более 10 символов, считая слева на право, и латинскую строчную букву 'u'.
 select title_name, position('u' in title_name) as 'Position u' from titles where position('u' in title_name) between 1 and 10 order by position('u' in title_name) desc;
+
+# Операции с данными даты и времени
+
+# Получить идентификаторы и даты публикации книг, которые были напечатаны или в первой половине 2002 года, или в первой половине 2001 года.
+select title_id, pubdate from titles where extract(year from pubdate) between 2001 and 2002 and extract(month from pubdate) between 1 and 6 order by pubdate desc;
+
+# CURRENT_DATE – чтобы вывести дату;
+# CURRENT_TIME – чтобы вывести время;
+# CURRENT_TIMESTAMP – чтобы вывести от метку времени.
+
+# Получить текущие дату, время, отметку времени.
+select current_date as 'Date', current_time as 'Time', current_timestamp as 'Timestamp';
+
+# Получить книги, дата публикации которых или неизвестна совсем, или попадает в интервал 90 дней, считая от текущей даты.
+select title_id, pubdate from titles where pubdate between current_timestamp - interval 90 day and current_timestamp + interval 90 day or pubdate is null order by pubdate desc;
+
+# Получить имя текущиего пользователя.
+select current_user as 'User';
+
+# Преобразование типов данных, функция CAST()
+
+# Преобразовать цены книг, из типа decimal в типы данных integer и char(8).
+# В MySQL не используется тип INT или INTEGER для преобразования — нужно указывать SIGNED или UNSIGNED.
+select price as 'price(decimal)', cast(price as signed) as 'price(integer)', concat('<', cast(price as char(8)), '>') as 'price(char(8)' from titles;
+
+select cast("11:35:00" as year), cast(time "11:35:00" as year);
+select cast(1944.35 as year), cast(1944.50 as year);
+select cast(66.35 as year), cast(66.50 as year);
+select cast("1979aaa" as year);
+
+# Перечислить в порядке убывания (нисходящий порядок) общие объемы продаж вместе с некоторыми частями названий заданной длины тех книг,
+# темой которых является или история или биография.
+select concat(cast(sales as char(8)), ' copies sold of ', cast(title_name as char(20)), ' History and biography sales') from titles where sales is not null and type in ('history', 'biography') order by sales desc;
+
+# Вычисление условных выражений с помощью выражения CASE
+
+# CASE comparison_value
+# WHEN value1 THEN result1
+# WHEN value2 THEN result2
+# …
+# WHEN valueN THEN resultN
+# [ELSE default_result]
+# END
+
+# Перечислить в алфавитном порядке (восходящий порядок) идентификаторы и темы книг, вместе с текущими и новыми ценами
+# при том условии, что новая цена исторических книг должна быть больше текущей цены этих книг на 10%,
+# новая цена книг по психологии должна быть больше текущей цены на 20%, а новая цена любой книги по другой теме
+# должна быть равна текущей цене.
+select title_id, type, price, case type when 'history' then price * 1.10 when 'psychology' then price * 1.20 else price end as 'New price' from titles order by type asc, title_id desc;
+
+# Получить в порядке возрастания объемов продаж идентификаторы книг, с разбивкой по категориям объемов продаж.
+select title_id,
+       case
+        when sales is null then 'Unknown'
+        when sales <= 1000 then 'Not more than 1,000'
+        when sales <= 10000 then 'Between 1,001 and 10,000'
+        when sales <= 100000 then 'Between 10,001 and 100,000'
+        when sales <= 1000000 then 'Between 100,001 and 1,000,000'
+        else 'Over 1,000,000'
+        end
+        as 'Sales category'
+from titles order by sales asc;
