@@ -314,3 +314,102 @@ select title_id,
         end
         as 'Sales category'
 from titles order by sales asc;
+
+# Получить идентификаторы и места нахождения издателей, при наличии у какого-нибудь издателя в столбце state (штат) значения null стояло N/A.
+select pub_id, city, coalesce(state, 'N/A') as state, country from publishers;
+
+# Поменять нули на значения null.
+select title_id, contract, nullif(contract, 0) as 'Null contract' from titles;
+
+# Суммирование и группировка данных
+
+# Агрегатные функции
+
+# MIN(expr) - Минимальное значение в expr
+# MAX(expr) - Максимальное значение в expr
+# SUM(expr) - Сумма всех значений в expr
+# AVG(expr) - Среднее всех значений в expr
+# COUNT(expr) - Число всех значений, не являющихся значениями null, в expr
+# COUNT(*) - Число строк в произвольной таблице или произвольном наборе строк
+
+# Запросы с применением функции MIN()
+select min(price) as 'Min price' from titles;
+select min(pubdate) as 'Earliest pubdate' from titles;
+select min(pages) as 'Min history pages' from titles where type = 'history';
+
+# Запросы с применением функции MAX()
+select max(au_lname) as 'Max last name' from authors;
+select min(price) as 'Min price', max(price) as 'Max price', max(price) - min(price) as 'Range' from titles;
+select max(price * sales) as 'Max history revenue' from titles where type = 'history';
+
+# Запросы с применением функции SUM()
+select sum(advance) as 'Total advances' from royalties;
+select sum(sales) as 'Total sales (2000 books)' from titles where pubdate between date '2000-01-01' and date '2000-12-31';
+select sum(price) as 'Total price',sum(sales) as 'Total sales', sum(price * sales) as 'Total revenue' from titles;
+
+# Запросы с применением функции AVG()
+select avg(price * 2) as 'AVG(price*2)' from titles;
+select avg(sales) as 'AVG(sales)', sum(sales) as 'SUM(sales)' from titles where type = 'business';
+select title_id, sales from titles where sales > (select avg(sales) from titles) order by sales desc;
+
+# Запросы с применением функции COUNT()
+select count(title_id) as 'count(title_id)', count(price) as 'count(price)', count(*) as 'count(*)' from titles;
+select count(title_id) as 'count(title_id)', count(price) as 'count(price)', count(*) as 'count(*)' from titles where price is not null;
+select count(title_id) as 'count(title_id)', count(price) as 'count(price)', count(*) as 'count(*)' from titles where price is null;
+
+# Агрегатные запросы с применением предложения DISTINCT.
+select count(*) as 'count(*)', count(price) as 'count(price)', sum(price) as 'sum(price)', avg(price) as 'avg(price)' from titles;
+select count(distinct price) as 'count(distinct price)', sum(distinct price) as 'sum(distinct price)', avg(distinct price) as 'avg(distinct price)' from titles;
+select count(au_id) as 'count(au_id)' from title_authors;
+select distinct count(au_id) as 'distinct count(au_id)' from title_authors;
+select count(distinct au_id) as 'count(distinct au_id)' from title_authors;
+
+# Примеры запросов со смешанным применением агрегатов, обработанных и не обработанных предложением DISTINCT в одном и том же предложении SELECT.
+select count(price) as 'count(price)', sum(price) as 'sum(price)' from titles;
+select count(price) as 'count(price)', sum(distinct price) as 'sum(distinct price)' from titles;
+select count(distinct price) as 'count(distinct price)', sum(price) as 'sum(price)' from titles;
+select count(distinct price) as 'count(distinct price)', sum(distinct price) as 'sum(distinct price)' from titles;
+
+# Группировка строк предложением GROUP BY
+
+# Порядок группировки строк
+# SELECT columns
+# FROM table
+# [WHERE search_condition]
+# GROUP BY grouping_columns
+# [HAVING search_condition]
+# [ORDER BY sort_columns];
+
+# Получить идентификаторы авторов, и на против каждого идентификатора указать то количество книг, которое он написал в том числе и в соавторстве.
+select au_id, count(*) as num_books from title_authors group by au_id;
+
+# Этот запрос демонстрирует разницу между агрегатными функциями
+# COUNT(expr) и COUNT(*) в одном и том же предложении SELECT, включающем предложение GROUP BY.
+select state, count(state) as 'count(state)', count(*) as 'count(*)' from publishers group by state;
+
+# Для получения математически достоверных результатов следует применять не функцию COUNT(*),а функцию COUNT(expr).
+# В противном случае ошибка неизбежна, когда expr содержит значения null.
+select
+    type,
+    sum(sales) as 'sum(sales)',
+    count(sales) as 'count(sales)',
+    count(*) as 'count(*)',
+    sum(sales) / count(sales) as 'sum/count(sales)',
+    sum(sales) / count(*) as 'sum(sales)/count(*)',
+    avg(sales) as 'avg(sales)'
+from titles group by type;
+
+# Получить итоговые статистические показатели для каждого типа книг.
+select type, sum(sales) as 'sum(sales)', avg(sales) as 'avg(sales)', count(sales) as 'count(sales)' from titles group by type;
+
+# Получить итоговые статистические показатели для каждого типа книг, не учитывать книги дешевле 13 руб.
+# и упорядочить результат по уменьшению объема продаж.
+select type, sum(sales) as 'sum(sales)', avg(sales) as 'avg(sales)', count(sales) as 'count(sales)' from titles where price >= 13 group by type order by 'sum(sales)' desc;
+
+# Получить книги каждого типа с разбивкой по издателям в убывающем порядке внутри возрастающего порядка идентификаторов издателей.
+select pub_id, type, count(*) as 'count(*)' from titles group by pub_id, type order by pub_id asc, 'count(*)' desc;
+
+# Оба запроса дают один и тот же результат.
+select type from titles group by type;
+select distinct type from titles;
+
