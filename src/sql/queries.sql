@@ -413,3 +413,67 @@ select pub_id, type, count(*) as 'count(*)' from titles group by pub_id, type or
 select type from titles group by type;
 select distinct type from titles;
 
+# Получить книги в каждой категории объемов продаж в порядке их уменьшения.
+select
+    case
+        when sales is null
+            then 'unknown'
+        when sales <= 1000
+            then 'not more than 1,000'
+        when sales <= 10000
+            then 'between 1,001 and 10,000'
+        when sales <= 100000
+            then 'between 10,001 and 100,000'
+        when sales <= 1000000
+            then 'between 100,001 and 1,000,000'
+        else 'over 1,000,000'
+        end
+             as "sales category",
+    count(*) as "num titles"
+from titles
+group by
+    case
+        when sales is null
+            then 'unknown'
+        when sales <= 1000
+            then 'not more than 1,000'
+        when sales <= 10000
+            then 'between 1,001 and 10,000'
+        when sales <= 100000
+            then 'between 10,001 and 100,000'
+        when sales <= 1000000
+            then 'between 100,001 and 1,000,000'
+        else 'over 1,000,000'
+        end
+order by min(sales) asc;
+
+# Получить средние продажи с разбивкой по цене в порядке ее уменьшения.
+select price, avg(sales) as 'avg(sales)' from titles where price is not null group by price order by price asc;
+
+# Фильтрация групп предложением HAVING
+
+# Сначала GROUP BY объединяет строки в группы по общему признаку, а потом HAVING отбирает только те из них, которые подходят под условие.
+
+# Синтаксис запроса выглядит примерно так:
+
+# SELECT столбцы
+# FROM таблица
+# WHERE условие_для_строк
+# GROUP BY столбцы_группировки
+# HAVING условие_для_групп
+# ORDER BY итоговые_столбцы;
+
+# В условии HAVING чаще всего используют агрегатные функции — COUNT(), SUM(), AVG(), MIN() и MAX().
+
+# Важно запомнить следующее:
+# WHERE работает до группировки;
+# HAVING работает после группировки.
+
+# Перечислить авторов, написавших в том числе и в соавторстве, не менее трех книг.
+select au_id, count(*) as num_books from title_authors group by au_id having count(*) >= 3;
+
+# Получить книги, средний выловой доход по которым превышает 1 миллион, и средний валовой доход с разбивкой по их типам.
+select type, count(price) as 'count(price)', avg(price * sales) as 'avg revenue' from titles group by type having avg(price * sales) > 1000000;
+
+# Перечислить с разбивкой по издателям (первый уровень) и типам книг (второй уровень) опубликованные книги, учитываемые в нашей типовой базе данных.
+select pub_id, type, count(*) as 'count(*)' from titles group by pub_id, type having count(*) > 1 order by pub_id asc, 'count(*)' desc;
