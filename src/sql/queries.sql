@@ -477,3 +477,87 @@ select type, count(price) as 'count(price)', avg(price * sales) as 'avg revenue'
 
 # Перечислить с разбивкой по издателям (первый уровень) и типам книг (второй уровень) опубликованные книги, учитываемые в нашей типовой базе данных.
 select pub_id, type, count(*) as 'count(*)' from titles group by pub_id, type having count(*) > 1 order by pub_id asc, 'count(*)' desc;
+
+# Перечислить для издателей P03 и P04 общий объем продаж выпущенных книг с разбивкой по типам. Учесть итоговый объем продаж
+# которых превышает 10 000 копий при средней цене одной копии менее 20 руб.
+select type, sum(sales) as 'sum(sales)', avg(price) as 'avg(price)' from titles where pub_id in ('P03', 'P04') group by type having sum(sales) > 10000 and avg(price) < 20;
+
+# Выбор данных из нескольких таблиц
+
+# Внутреннее объединение INNER JOIN
+# Левое внешнее объединение LEFT OUTER JOIN
+# Правое внешнее объединение RIGHT OUTER JOIN
+# Полное внешнее объединение FULL OUTER JOIN
+# Естественное объединение NATURAL JOIN
+# Полное или перекрестноеобъединение CROSS JOIN
+# Тривиальное объединение, самообъединение SELF JOIN
+
+# INNER JOIN возвращает только строки, у которых есть совпадение по заданному условию.
+# LEFT JOIN (LEFT OUTER JOIN) возвращает все строки из левой таблицы и соответствующие строки из правой таблицы. Если нет совпадения, результат содержит NULL для столбцов правой таблицы.
+# RIGHT JOIN (RIGHT OUTER JOIN) возвращает все строки из правой таблицы и соответствующие строки из левой таблицы. Если нет совпадения, результат содержит NULL для столбцов левой таблицы.
+# FULL JOIN (FULL OUTER JOIN) возвращает все строки из обеих таблиц. Там, где есть совпадения, данные объединяются, а где связи нет — незаполненные поля заменяются NULL.
+
+# CROSS JOIN. Связь, при которой каждая запись из первой таблицы комбинируется с каждой записью из второй. Это называется декартовым произведением.
+# SELF JOIN. Таблица соединяется сама с собой. Это нужно, когда строки в ней связаны друг с другом.
+
+# Операции по обработке наборов строк  INTERSECT EXCEPT
+
+# UNION Все строки результатов обоих запросов. Дубликаты удалены.
+# INTERSECT Все строки, являющиеся общими как для результата первого запроса, так и для результата второго запроса. Дубликаты удалены.
+# EXCEPT Все строки результата первого запроса без тех строк результата первого запроса, которые одновременно являются строками результата второго запроса. Дубликаты удалены.
+
+# Создание произвольного объединения с использованием синтаксиса JOIN
+
+# SELECT columns
+# FROM table1 join_type table2
+# ON join_conditions
+# [WHERE search_condition]
+# [GROUP BY grouping_conditions]
+# [HAVING search_condition]
+# [ORDER BY sort_columns];
+
+# Создание произвольного объединения с использованием синтаксиса WHERE
+
+# SELECT columns
+# FROM table1, table2
+# WHERE join_conditions
+# [GROUP BY grouping_conditions]
+# [HAVING search_condition]
+# [ORDER BY sort_columns];
+
+# Запрос, который применяет синтаксис JOIN
+select au_fname, au_lname, a.city from authors a inner join publishers p on a.city = p.city;
+
+# Запрос, который применяет синтаксис WHERE
+select au_fname, au_lname, a.city from authors a, publishers p where a.city = p.city;
+
+# Последовательность исполнения запроса
+
+# Применить условия объединения, заданные предложением JOIN.
+# Применить условия объединения и поиска, заданные предложением WHERE.
+# Сгруппировать строки в соответствии с предложением GROUP BY.
+# Применить к группам условия поиска, заданные предложением HAVING.
+# Отсортировать результат в соответствии с предложением ORDER BY.
+
+# Предложение USING
+
+# JOIN допускает, чтобы вместо предложения ON применялось предложение USING, но только в том случае, когда все связывающие столбцы имеют попарно одинаковые имена.
+
+# FROM table1 joint_type table2 USING (columns)
+select au_fname, au_lname, a.city from authors a inner join publishers p using(city);
+
+# Создание произвольного перекрестного объединения CROSS JOIN
+
+# SELECT columns FROM table1 CROSS JOIN table2
+select * from authors cross join publishers;
+
+# Создать одно перекрестное объединение и распечатать все возможные комбинации строк двух таблиц.
+select au_id, pub_id, a.state as 'au_state', p.state as 'pub_state' from authors a cross join publishers p;
+
+# Создание произвольного естественного объединения NATURAL JOIN
+
+# SELECT columns FROM table1 NATURAL JOIN table2
+
+# Получить перечень книг, и издателей этих книг так, чтобы рядом с идентификатором книги были показаны в одной строке наименование издателя.
+select t.title_id, t.pub_id, p.pub_name from publishers p natural join titles t;
+
