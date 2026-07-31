@@ -1111,6 +1111,7 @@ from titles t;
 # Отобразить спикок книг, которые написал каждый автор (один или в соавторстве), включая авторов, не написавших ничего.
 select au_id, (select count(*) from title_authors ta where ta.au_id=a.au_id) as 'Num books' from authors a order by au_id asc;
 
-
+# Отобразить список всех авторов и даты публикации последних книг.
+select au_id, (select max(pubdate) from titles t inner join title_authors ta on ta.title_id=t.title_id where ta.au_id=a.au_id) as 'Latest pub date' from authors a;
 
 
